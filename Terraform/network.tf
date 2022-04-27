@@ -1,9 +1,9 @@
 # vpc
 resource "aws_vpc" "dev-env" {
-    cidr_block = "10.0.0.0/16"
+    cidr_block = "172.32.0.0/16"
     instance_tenancy = "default"
     enable_dns_support = "true"
-    enable_dns_hostnames = "true"
+    enable_dns_hostnames = "false"
     tags = {
       Name = "dev-env"
     }
@@ -13,7 +13,7 @@ resource "aws_vpc" "dev-env" {
 ## public
 resource "aws_subnet" "public-web" {
     vpc_id = "${aws_vpc.dev-env.id}"
-    cidr_block = "10.0.1.0/24"
+    cidr_block = "172.31.16.0/20"
     availability_zone = "us-east-1a"
     tags = {
       Name = "public-web"
@@ -23,7 +23,7 @@ resource "aws_subnet" "public-web" {
 ## praivate
 resource "aws_subnet" "private-db1" {
     vpc_id = "${aws_vpc.dev-env.id}"
-    cidr_block = "10.0.2.0/24"
+    cidr_block = "172.31.16.0/20"
     availability_zone = "us-east-1a"
     tags = {
       Name = "private-db1"
@@ -32,7 +32,7 @@ resource "aws_subnet" "private-db1" {
 
 resource "aws_subnet" "private-db2" {
     vpc_id = "${aws_vpc.dev-env.id}"
-    cidr_block = "10.0.3.0/24"
+    cidr_block = "172.32.0.0/20"
     availability_zone = "us-east-1c"
     tags = {
       Name = "private-db2"
